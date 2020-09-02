@@ -1,4 +1,5 @@
 #include "Person.h"
+#include <ctime>
 
 const char* Person::GetName() const
 {
@@ -68,9 +69,32 @@ void Person::SetBirthday(char* date)
     else
         throw std::exception("Invalid birth date");
 }
-
+#include <iostream>
 bool Person::ValidBirthDay(char* birthday)
 {
+    std::regex m("([0-9]{2}/[0-9]{2}/[0-9]{4})");
+    if (std::regex_match(birthday, m))
+    { 
+        time_t t;
+        //tm TM = {};
+        tm tmPtr;
+       
+        int year = 1993;
+        int month = 10;
+        int day = 35;
+        time(&t);
+        auto err =  localtime_s(&tmPtr, &t);
+        //std::cout << err << std::endl;
+
+        tmPtr.tm_year = year - 1900;
+        tmPtr.tm_mon = month - 1;
+        tmPtr.tm_mday = day;
+        std::cout << "mktime return: " << mktime(&tmPtr) << std::endl;
+        if (mktime(&tmPtr) == -1)
+            std::cout << "date failed " << std::endl;
+
+        return true;
+    }
     return false;
 }
 

@@ -39,6 +39,7 @@ int main()
 
     try
     {
+        person.SetBirthday(birthDayBuffer);
         /*
         person.SetName(nameBuffer);
         person.SetInitial(initialBuffer[0]);
