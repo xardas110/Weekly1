@@ -1,20 +1,58 @@
-// Weekly1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include "Person.h"
 #include <iostream>
+using namespace std;
+
+//Helper functions
+void CheckCin(istream &cin)
+{
+    if (!cin)
+        throw exception("Invalid format to cin");
+}
+
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Person person;
+    char nameBuffer[100] = {};
+    char birthDayBuffer[40] = {};
+    char initialBuffer[2] = {};
+    unsigned short age = (unsigned short)0;
+    unsigned long phoneNumberBuffer = 0UL;
+    
+ /*
+    cout << "Please enter your full name: ";
+    cin.getline(nameBuffer, _countof(nameBuffer));
+    cin.clear(); 
+    cout << "What's your initial? ";
+    cin.getline(initialBuffer, _countof(initialBuffer));
+    cin.clear();
+    cout << "Phone Number: ";
+    cin >> phoneNumberBuffer;
+    
+    cout << "Enter age: ";
+    cin >> age;
+    cout << "Your age is: " << age << endl;
+    */
+    cout << "Enter birthDay(dd/mm/yyyy): ";
+    cin.getline(birthDayBuffer, _countof(birthDayBuffer));
+
+    try
+    {
+        /*
+        person.SetName(nameBuffer);
+        person.SetInitial(initialBuffer[0]);
+        person.SetNumber(phoneNumberBuffer);
+        person.SetAge(age);
+        */
+    }
+    catch (exception err)
+    {
+        cout << "Error occured: " << err.what() << endl;
+    }
+
+
+    cout << "Your initial is: " << initialBuffer << endl;
+    cout << "Your phone number is: " << phoneNumberBuffer << endl;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
