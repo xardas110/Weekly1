@@ -143,6 +143,7 @@
     <ClCompile Include="Weekly1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Helpers.h" />
     <ClInclude Include="Person.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

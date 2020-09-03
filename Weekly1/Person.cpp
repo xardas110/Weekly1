@@ -1,5 +1,8 @@
 #include "Person.h"
 #include <ctime>
+#include <iostream>
+#include "Helpers.h"
+#include <stdlib.h>
 
 const char* Person::GetName() const
 {
@@ -36,14 +39,10 @@ void Person::SetName(char* name)
 
 void Person::SetInitial(char init)
 {
-    if (ValidInitial(init))
-    {       
+    if (ValidInitial(init))     
         this->initial = init;
-        if (memcmp(&name[0], &init, 1))
-            throw std::exception("Your first initial doesn't match the first letter in your name, are you sure this is right?");
-    }
     else
-        throw std::exception("Initial doesn't match name");
+        throw std::exception("Initial doesn't match name or first letter in your name doesn't match");
 }
 
 void Person::SetAge(unsigned short age)
@@ -67,32 +66,25 @@ void Person::SetBirthday(char* date)
     if (ValidBirthDay(date))
         birthDate = date;
     else
-        throw std::exception("Invalid birth date");
+        throw std::exception("Invalid birthday");
 }
-#include <iostream>
+
 bool Person::ValidBirthDay(char* birthday)
 {
-    std::regex m("([0-9]{2}/[0-9]{2}/[0-9]{4})");
+    std::regex m("([0-9]{1,2}/[0-9]{1,2}/[0-9]{4})");
     if (std::regex_match(birthday, m))
     { 
-        time_t t;
-        //tm TM = {};
-        tm tmPtr;
-       
-        int year = 1993;
-        int month = 10;
-        int day = 35;
-        time(&t);
-        auto err =  localtime_s(&tmPtr, &t);
-        //std::cout << err << std::endl;
-
-        tmPtr.tm_year = year - 1900;
-        tmPtr.tm_mon = month - 1;
-        tmPtr.tm_mday = day;
-        std::cout << "mktime return: " << mktime(&tmPtr) << std::endl;
-        if (mktime(&tmPtr) == -1)
-            std::cout << "date failed " << std::endl;
-
+        //Do a last check to see if the date exists, will do this in integer format, since I know it can't be negative inside this block, will make my next calculations easier
+        //splitting string by / then converting it to int
+        char* tok = NULL;  
+        const int day = atoi(strtok_s(birthday, "/", &tok));
+        const int month = atoi(strtok_s(NULL, "/", &tok));
+        const int year = atoi(strtok_s(NULL, "/", &tok));
+        //std::cout << day << " " << month << " " << year << std::endl;
+            
+        const __m128i container = _mm_setr_epi32(day, month, year, 0); //{ day, month, year, 0 };
+        if (IsDateValid(container))
+            return false;
         return true;
     }
     return false;
@@ -111,7 +103,7 @@ bool Person::ValidAge(unsigned short age)
         return true;
     return false;
 }
-#include <iostream>
+
 bool Person::ValidInitial(char init)
 {
     std::regex search(" |-");
@@ -119,7 +111,12 @@ bool Person::ValidInitial(char init)
     std::regex r('['+result+']');
 
     if (std::regex_match(&init, r))
+    {
+        if (memcmp(&result[0], &init, 1))
+            printf("Initial doesn't match the first letter in your name");
         return true;
+    }
+       
     return false;
 }
 
