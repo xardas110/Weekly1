@@ -33,7 +33,7 @@ const char* Person::GetBirthDay() const
 void Person::SetName(char* name)
 {
     //std::cout << name << std::endl;
-    if (ValidName(name))
+    if (IsValidName(name))
         this->name = name;
     else
         throw ErrorCodes::InvalidName;
@@ -41,7 +41,7 @@ void Person::SetName(char* name)
 
 void Person::SetInitial(char init)
 {
-    if (ValidInitial(init))
+    if (IsValidInitial(init))
         this->initial = init;
     else
         throw ErrorCodes::InvalidInitial;
@@ -49,7 +49,7 @@ void Person::SetInitial(char init)
 
 void Person::SetAge(unsigned short age)
 {
-    if (ValidAge(age))
+    if (IsValidAge(age))
         this->age = age;
     else
         throw ErrorCodes::InvalidAge;
@@ -57,7 +57,7 @@ void Person::SetAge(unsigned short age)
 
 void Person::SetNumber(unsigned long number)
 {
-    if (ValidNumber(number))
+    if (IsValidNumber(number))
         this->number = number;
     else
         throw ErrorCodes::InvalidPhoneNumber;
@@ -65,13 +65,13 @@ void Person::SetNumber(unsigned long number)
 
 void Person::SetBirthday(char* date)
 {
-    if (ValidBirthDay(date))
+    if (IsValidBirthday(date))
         birthDate = date;
     else
         throw ErrorCodes::InvalidBirthday;
 }
 
-bool Person::ValidBirthDay(char* birthday)
+bool Person::IsValidBirthday(char* birthday)
 {
     std::regex m("([0-9]{1,2}/[0-9]{1,2}/[0-9]{4})");
     if (std::regex_match(birthday, m))
@@ -96,21 +96,21 @@ bool Person::ValidBirthDay(char* birthday)
     return false;
 }
 
-bool Person::ValidNumber(unsigned long number)
+bool Person::IsValidNumber(unsigned long number)
 {
     if (number < 99999999UL)
         return true;
     return false;
 }
 
-bool Person::ValidAge(unsigned short age)
+bool Person::IsValidAge(unsigned short age)
 {
     if (age < (unsigned short)150)
         return true;
     return false;
 }
 
-bool Person::ValidInitial(char init)
+bool Person::IsValidInitial(char init)
 {
     std::regex search(" |-");
     auto result = std::regex_replace(name, search, "");
@@ -126,7 +126,7 @@ bool Person::ValidInitial(char init)
     return false;
 }
 
-bool Person::ValidName(char* name)
+bool Person::IsValidName(char* name)
 {
     std::regex r("[a-å- |A-Å-]+");
     if (std::regex_match(name, r))
