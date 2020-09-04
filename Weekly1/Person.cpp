@@ -1,8 +1,5 @@
 #include "Person.h"
-#include <ctime>
-#include <iostream>
-#include <stdlib.h>
-
+#include <regex>
 
 const char* Person::GetName() const
 {
