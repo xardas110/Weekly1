@@ -1,7 +1,7 @@
 #ifndef HELPERS_H
 #define HELPERS_H
-#include <xmmintrin.h>
-#include <emmintrin.h>
+#include <xmmintrin.h>//intel intrinsics -> SSE2 functions later in code
+#include <emmintrin.h>//intel intrinsics -> SSE2 functions later in code
 #include <iostream>
 //Helper functions
 using BYTE = __int8;
@@ -21,7 +21,7 @@ UBYTE inline _vectorcall IsDateValid(__m128i DMY)
 		leap = 1;
 	daysPrMonth[1] += leap;
 
-	//vectorizing to compare values, these functions require CPU SSE2 support, I won't bother to add support for other CPU's  right now, all cpu's in the last 10years should support SSE2
+	//vectorizing to compare values, these functions require CPU SSE2 support, I won't bother to add support for other CPU's  right now, all cpu's in the last 20years should support SSE2
 	const auto compVals = _mm_setr_epi32(daysPrMonth[DMY.m128i_i32[1] - 1], maxMonth, maxYear, 100);//making sure that w = 100 for comparison reasons
 	//Leaving this for debugging
 	//std::cout << DMY.m128i_i32[0] << " " << DMY.m128i_i32[1] << " " << DMY.m128i_i32[2] << " " << DMY.m128i_i32[3] << " " << std::endl;
@@ -30,25 +30,23 @@ UBYTE inline _vectorcall IsDateValid(__m128i DMY)
 	//std::cout << ((_mm_movemask_epi8(_mm_cmpgt_epi32(DMY, comVals)) & 7) == 7) << std::endl;
 	//checking if DMY > compVals with vectorization
 	if (((_mm_movemask_epi8(_mm_cmpgt_epi32(DMY, compVals)) & 7) != 7))
-		return false;
-	return true;
+		return (UBYTE)false;
+	return (UBYTE)true;
 }
-
-inline int CheckYN(char r)
+inline BYTE CheckYN(char r)
 {
     if (r == 'y')
-        return 1;
+        return (BYTE)1;
     else if (r == 'n')
-        return 0;
+        return (BYTE)0;
     else
-        return -1;
+        return (BYTE)-1;
 }
 inline void cInput(const char* text, char* buffer, const size_t size)
 {
     std::cout << text;
     std::cin.getline(buffer, size);
 }
-
 template<class I>
 inline void iInput(const char* text, I& val)
 {
@@ -84,4 +82,4 @@ inline bool CheckPhone(std::wistream& wcin, unsigned long long& phone)
     return true;
 }
 
-#endif // HELPERS
+#endif // HELPERS_H
