@@ -1,5 +1,8 @@
-#pragma once
+#ifndef PERSON_H
+#define PERSON_H
 #include <regex>
+#include "Helpers.h"
+#include "ErrorCodes.h"
 
 class Person
 {
@@ -34,3 +37,4 @@ public:
     bool IsValidInitial(char init);
     bool IsValidName(char *name);
 };
+#endif // !PERSON

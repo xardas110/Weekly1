@@ -1,58 +1,9 @@
-#include "Person.h"
+//Will not use precompiled headers since it's a short program
 #include "ErrorCodes.h"
+#include "Helpers.h"
+#include "Person.h"
 #include <iostream>
 using namespace std;
-using BYTE = unsigned __int8;
-//Helper functions
-int CheckYN(char r)
-{
-    if (r == 'y')
-        return 1;
-    else if (r == 'n')
-        return 0;
-    else
-        return -1;
-}
-void cInput(const char* text, char* buffer, const size_t size)
-{
-    cout << text;
-    cin.getline(buffer, size);
-}
-
-template<class I>
-void iInput(const char* text, I &val)
-{
-    cout << text;
-    cin >> val;
-}
-template<class I>
-void ilInput(const char* text, I& val)
-{
-    cout << text;
-    wcin >> val;
-}
-//**Cin as first parameter just to be sure that it doesn't do the check at the wrong time **//
-bool CheckAge(istream& cin, unsigned short& age)
-{
-    iInput("Age: ", age);
-    if (!cin)
-    { 
-        cout << "Invalid age" << endl;
-        return false;
-    }
-    return true;
-}
-//**Wcin as first parameter just to be sure that it doesn't do the check at the wrong time **//
-bool CheckPhone(wistream& wcin, unsigned long long& phone)
-{
-    ilInput("Phone: ", phone);
-    if (!wcin)
-    {
-        cout << "Invalid phonenumber" << endl;    
-        return false;
-    }
-    return true;
-}
 int main()
 {
     Person person;

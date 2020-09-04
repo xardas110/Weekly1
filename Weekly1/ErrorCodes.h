@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ERRORCODES_H
+#define ERRORCODES_H
+
 enum class ErrorCodes
 {
 	InvalidName,
@@ -7,3 +9,4 @@ enum class ErrorCodes
 	InvalidInitial,
 	InvalidPhoneNumber
 };
+#endif // !ERRORCODES

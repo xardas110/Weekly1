@@ -1,11 +1,14 @@
-#pragma once
+#ifndef HELPERS_H
+#define HELPERS_H
 #include <xmmintrin.h>
 #include <emmintrin.h>
-//#include <iostream>//just for debugging
+#include <iostream>
+//Helper functions
+using BYTE = __int8;
 using UBYTE = unsigned __int8;
- 
+
 /**x = days, y= months, z= years, w = free space**/
-UBYTE _vectorcall IsDateValid(__m128i DMY)
+UBYTE inline _vectorcall IsDateValid(__m128i DMY)
 {
 	constexpr int maxYear = 10000;
 	constexpr int maxMonth = 12;
@@ -30,3 +33,55 @@ UBYTE _vectorcall IsDateValid(__m128i DMY)
 		return false;
 	return true;
 }
+
+inline int CheckYN(char r)
+{
+    if (r == 'y')
+        return 1;
+    else if (r == 'n')
+        return 0;
+    else
+        return -1;
+}
+inline void cInput(const char* text, char* buffer, const size_t size)
+{
+    std::cout << text;
+    std::cin.getline(buffer, size);
+}
+
+template<class I>
+inline void iInput(const char* text, I& val)
+{
+    std::cout << text;
+    std::cin >> val;
+}
+template<class I>
+inline void ilInput(const char* text, I& val)
+{
+    std::cout << text;
+    std::wcin >> val;
+}
+//**Cin as first parameter just to be sure that it doesn't do the check at the wrong time **//
+inline bool CheckAge(std::istream& cin, unsigned short& age)
+{
+    iInput("Age: ", age);
+    if (!cin)
+    {
+        std::cout << "Invalid age" << std::endl;
+        return false;
+    }
+    return true;
+}
+//**Wcin as first parameter just to be sure that it doesn't do the check at the wrong time **//
+inline bool CheckPhone(std::wistream& wcin, unsigned long long& phone)
+{
+    ilInput("Phone: ", phone);
+    if (!wcin)
+    {
+        std::cout << "Invalid phonenumber" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+#endif // HELPERS
