@@ -20,7 +20,7 @@ const unsigned short Person::GetAge() const
     return age;
 }
 
-const unsigned long Person::GetNumber() const
+const unsigned long long Person::GetNumber() const
 {
     return number;
 }
@@ -55,7 +55,7 @@ void Person::SetAge(unsigned short age)
         throw ErrorCodes::InvalidAge;
 }
 
-void Person::SetNumber(unsigned long number)
+void Person::SetNumber(unsigned long long number)
 {
     if (IsValidNumber(number))
         this->number = number;
@@ -87,8 +87,8 @@ bool Person::IsValidBirthday(char* birthday)
         const int year = atoi(strtok_s(NULL, "/", &tok));
         //std::cout << day << " " << month << " " << year << std::endl;
             
-        const __m128i container = _mm_setr_epi32(day, month, year, 0); //{ day, month, year, 0 };
-        if (IsDateValid(container))
+        const __m128i dmy = _mm_setr_epi32(day, month, year, 0); //{ day, month, year, 0 };
+        if (IsDateValid(dmy))
             return false;
 
         return true;
@@ -96,11 +96,11 @@ bool Person::IsValidBirthday(char* birthday)
     return false;
 }
 
-bool Person::IsValidNumber(unsigned long number)
+bool Person::IsValidNumber(unsigned long long number)
 {
-    if (number < 99999999UL)
-        return true;
-    return false;
+    //TODO: add a check here later if required
+     return true;
+
 }
 
 bool Person::IsValidAge(unsigned short age)
@@ -112,7 +112,7 @@ bool Person::IsValidAge(unsigned short age)
 
 bool Person::IsValidInitial(char init)
 {
-    std::regex search(" |-");
+    std::regex search(" |-|_");
     auto result = std::regex_replace(name, search, "");
     std::regex r('['+result+']');
 

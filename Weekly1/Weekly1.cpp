@@ -4,44 +4,51 @@
 using namespace std;
 using BYTE = unsigned __int8;
 //Helper functions
-
-BYTE CheckYN(char r)
+int CheckYN(char r)
 {
     if (r == 'y')
-        return (BYTE)1;
+        return 1;
     else if (r == 'n')
-        return (BYTE)0;
+        return 0;
     else
-        return (BYTE)-1;
+        return -1;
 }
 void cInput(const char* text, char* buffer, const size_t size)
 {
     cout << text;
     cin.getline(buffer, size);
 }
+
 template<class I>
 void iInput(const char* text, I &val)
 {
     cout << text;
     cin >> val;
 }
-
+template<class I>
+void ilInput(const char* text, I& val)
+{
+    cout << text;
+    wcin >> val;
+}
+//**Cin as first parameter just to be sure that it doesn't do the check at the wrong time **//
 bool CheckAge(istream& cin, unsigned short& age)
 {
     iInput("Age: ", age);
     if (!cin)
     { 
-        cout << "Invalid age, enter numbers!" << endl;
+        cout << "Invalid age" << endl;
         return false;
     }
     return true;
 }
-bool CheckPhone(istream& cin, unsigned long& phone)
+//**Wcin as first parameter just to be sure that it doesn't do the check at the wrong time **//
+bool CheckPhone(wistream& wcin, unsigned long long& phone)
 {
-    iInput("Phone: ", phone);
-    if (!cin)
+    ilInput("Phone: ", phone);
+    if (!wcin)
     {
-        cout << "Invalid phonenumber, enter numbers!" << endl;    
+        cout << "Invalid phonenumber" << endl;    
         return false;
     }
     return true;
@@ -53,10 +60,10 @@ int main()
     char birthDayBuffer[40]{};
     char initialBuffer[2]{};
     unsigned short age = (unsigned short)0;
-    unsigned long phoneNumberBuffer = 0UL;
+    unsigned long long phoneNumberBuffer = 0UL;
 INPUT: 
     cInput("Name(Firstname Lastname): ", nameBuffer, 100);
-    cInput("Initial: ", initialBuffer, 2);
+    cInput("Initial: ", initialBuffer, 2);//Seems like the minimum buffer requirment for cin.getline is 2 bytes, can't seem to make it work with 1 byte
 REDOAGE:
     if (!CheckAge(cin, age))
     { 
@@ -65,10 +72,10 @@ REDOAGE:
         goto REDOAGE;
     }
 REDOPHONE:
-    if (!CheckPhone(cin, phoneNumberBuffer))
+    if (!CheckPhone(wcin, phoneNumberBuffer))
     {
-        cin.clear();
-        cin.ignore(INT_MAX, '\n');
+        wcin.clear();
+        wcin.ignore(INT_MAX, '\n');
         goto REDOPHONE;
     }
     cin.clear();
@@ -180,10 +187,10 @@ TRY:
             switch (CheckYN(r))
             {
             case 1:
-            {
+            {        
                 cin.clear();
                 cin.ignore(INT_MAX, '\n');
-                cInput("Initial: ", initialBuffer, 2);
+                cInput("Initial: ", initialBuffer, 2);                
                 goto TRY;
             }
             break;
@@ -209,9 +216,9 @@ TRY:
             {
             case 1:
             {
-                cin.clear();
-                cin.ignore(INT_MAX, '\n');
-                iInput("Phone: ", phoneNumberBuffer);
+                wcin.clear();
+                wcin.ignore(INT_MAX, '\n');
+                ilInput("Phone: ", phoneNumberBuffer);
                 goto TRY;
             }
             break;
@@ -233,23 +240,31 @@ TRY:
     }
 
     system("CLS");
-    cout << "Is all the information correct? " << endl;
     if (person.GetName())
         cout << "Name: " << person.GetName() << endl;
+    else 
+        cout << "Name: " << "No input recorded" << endl;
     if (person.GetInitial())
         cout << "Initial: " << person.GetInitial() << endl;
+    else
+        cout << "Initial: " << "No input recorded" << endl;
     if (person.GetAge())
         cout << "Age: " << person.GetAge() << endl;
+    else
+        cout << "Age: " << "No input recorded" << endl;
+    if (person.GetNumber())
+        wcout << L"Phone: " << person.GetNumber() << endl;
+    else
+        cout << "Phone: " << "No input recorded" << endl;
     if (person.GetBirthDay())
         cout << "Date: " << person.GetBirthDay() << endl;
-    if (person.GetNumber())
-        cout << "Phone: " << person.GetNumber() << endl;
-   
+    else
+        cout << "Date: " << "No input recorded" << endl;
+    
     END:
-    cout << "y/n: ";
+    cout << "Is all the information correct? y/n: ";
     char res = ' ';
     cin >> res;
-
     switch (CheckYN(res))
     {
     case 1:
