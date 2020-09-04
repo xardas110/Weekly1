@@ -1,7 +1,7 @@
 //Will not use precompiled headers since it's a short program
-#include "ErrorCodes.h"
-#include "Helpers.h"
-#include "Person.h"
+#include "../Weekly1/ErrorCodes.h"
+#include "../Weekly1/Helpers.h"
+#include "../Weekly1/Person.h"
 #include <iostream>
 using namespace std;
 int main()
