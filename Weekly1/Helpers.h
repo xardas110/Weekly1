@@ -28,7 +28,7 @@ UBYTE inline _vectorcall IsDateValid(__m128i DMY)
 	//std::cout << comVals.m128i_i32[0] << " " << comVals.m128i_i32[1] << " " << comVals.m128i_i32[2] << " " << comVals.m128i_i32[3] << " " << std::endl;
 	//std::cout << _mm_cmpgt_epi32(DMY, comVals).m128i_i32[0] << " " << _mm_cmpgt_epi32(DMY, comVals).m128i_i32[1] << " " << _mm_cmpgt_epi32(DMY, comVals).m128i_i32[2] << " " << _mm_cmpgt_epi32(DMY, comVals).m128i_i32[3] << " " << std::endl;
 	//std::cout << ((_mm_movemask_epi8(_mm_cmpgt_epi32(DMY, comVals)) & 7) == 7) << std::endl;
-	//checking if DMY > compVals with vectorization, comparing only 3 values, hence the bitwise and 7 and not 0xff
+	//checking if DMY > compVals with vectorization, comparing only 3 values, hence the bitwise and 7 and not 0xF/15
 	if (((_mm_movemask_epi8(_mm_cmpgt_epi32(DMY, compVals)) & 7) != 7))
 		return (UBYTE)false;
 	return (UBYTE)true;
