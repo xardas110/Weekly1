@@ -17,7 +17,7 @@ UBYTE inline _vectorcall IsDateValid(__m128i DMY)
 
 	//Check if its a leap year
 	const auto& year = DMY.m128i_i32[2];
-	if ((year % 4) == 0 and (year % 100) || (year % 400) == 0)
+	if ((year % 4) == 0 and (year % 100) != 0 || (year % 400) == 0)
 		leap = 1;
 	daysPrMonth[1] += leap;
 
