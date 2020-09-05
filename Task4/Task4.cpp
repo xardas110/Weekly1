@@ -11,7 +11,7 @@ int main()
 
 INPUT:
     iInput("What is your favorite drink?\n 1. Coffee\n 2. Tea\n 3. Coca Cola\n Select between 1 to 3: ", option);
-    if (option > maxOptions or !cin or option == 0)
+    if (option > maxOptions || !cin || option == 0)
     {
         OPTERR:
         char r = ' ';
