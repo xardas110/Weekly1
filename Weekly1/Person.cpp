@@ -21,7 +21,7 @@ const unsigned long long Person::GetNumber() const
     return number;
 }
 
-const char* Person::GetBirthDay() const
+const char* Person::GetBirthday() const
 {
     return birthDate;
 }
@@ -96,7 +96,6 @@ bool Person::IsValidNumber(unsigned long long number)
 {
     //TODO: add a check here later if required
      return true;
-
 }
 
 bool Person::IsValidAge(unsigned short age)

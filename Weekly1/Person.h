@@ -11,15 +11,15 @@ public:
     {};
     Person operator=(Person copy) = delete;
 private:
-    char* name;//4bytes
+    char* name;
     char initial;
     unsigned short age;
-    unsigned long long number; //4bytes
+    unsigned long long number;
     char* birthDate;
 public:
     const char* GetName() const;
     const char GetInitial() const;
-    const char* GetBirthDay() const;
+    const char* GetBirthday() const;
     const unsigned short GetAge() const;
     const unsigned long long GetNumber() const;
     
@@ -30,7 +30,6 @@ public:
     void SetBirthday(char* date);
 
     bool IsValidBirthday(char* birthday);
-    //**Only supports Norwegian numbers**//
     bool IsValidNumber(unsigned long long number);
     bool IsValidAge(unsigned short age);
     bool IsValidInitial(char init);

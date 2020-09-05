@@ -11,7 +11,7 @@ int main()
     char birthDayBuffer[40]{};
     char initialBuffer[2]{};
     unsigned short age = (unsigned short)0;
-    unsigned long long phoneNumberBuffer = 0UL;
+    unsigned long long phoneNumberBuffer = 0ULL;
 INPUT: 
     cInput("Name(Firstname Lastname): ", nameBuffer, 100);
     cInput("Initial: ", initialBuffer, 2);//Seems like the minimum buffer requirment for cin.getline is 2 bytes, can't seem to make it work with 1 byte
@@ -19,18 +19,18 @@ REDOAGE:
     if (!CheckAge(cin, age))
     { 
         cin.clear();
-        cin.ignore(INT_MAX, '\n');
+        cin.ignore(LLONG_MAX, '\n');
         goto REDOAGE;
     }
 REDOPHONE:
     if (!CheckPhone(wcin, phoneNumberBuffer))
     {
         wcin.clear();
-        wcin.ignore(INT_MAX, '\n');
+        wcin.ignore(LLONG_MAX, '\n');
         goto REDOPHONE;
     }
     cin.clear();
-    cin.ignore(INT_MAX, '\n');
+    cin.ignore(LLONG_MAX, '\n');
     cInput("Birthday(dd/mm/yyyy): ", birthDayBuffer, 40);
 TRY:
     try
@@ -56,7 +56,7 @@ TRY:
             case 1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 cInput("Name: ", nameBuffer, 100);
                 goto TRY;
             }
@@ -64,7 +64,7 @@ TRY:
             case -1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 goto NAMESTART;
             }
             break;
@@ -84,7 +84,7 @@ TRY:
             case 1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 iInput("Age: ", age);
                 goto TRY;
             }
@@ -92,7 +92,7 @@ TRY:
             case -1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 goto AGESTART;
             }
             break;
@@ -112,7 +112,7 @@ TRY:
             case 1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 cInput("Birthday(dd/mm/yyyy): ", birthDayBuffer, 40);
                 goto TRY;
             }
@@ -120,7 +120,7 @@ TRY:
             case -1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 goto BIRTHSTART;
             }
             break;
@@ -140,7 +140,7 @@ TRY:
             case 1:
             {        
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 cInput("Initial: ", initialBuffer, 2);                
                 goto TRY;
             }
@@ -148,7 +148,7 @@ TRY:
             case -1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 goto INITIALSTART;
             }
             break;
@@ -168,7 +168,7 @@ TRY:
             case 1:
             {
                 wcin.clear();
-                wcin.ignore(INT_MAX, '\n');
+                wcin.ignore(LLONG_MAX, '\n');
                 ilInput("Phone: ", phoneNumberBuffer);
                 goto TRY;
             }
@@ -176,7 +176,7 @@ TRY:
             case -1:
             {
                 cin.clear();
-                cin.ignore(INT_MAX, '\n');
+                cin.ignore(LLONG_MAX, '\n');
                 goto PHONESTART;
             }
             break;
@@ -191,26 +191,28 @@ TRY:
     }
 
     system("CLS");
+    cout << "----------------------------------" << endl;
     if (person.GetName())
-        cout << "Name: " << person.GetName() << endl;
+        cout << "| Name    |" << person.GetName() << endl;
     else 
-        cout << "Name: " << "No input recorded" << endl;
+        cout << "| Name    |" << "No input" << endl;
     if (person.GetInitial())
-        cout << "Initial: " << person.GetInitial() << endl;
+        cout << "| Initial |" << person.GetInitial() << endl;
     else
-        cout << "Initial: " << "No input recorded" << endl;
+        cout << "| Initial |" << "No input" << endl;
     if (person.GetAge())
-        cout << "Age: " << person.GetAge() << endl;
+        cout << "| Age     |" << person.GetAge() << endl;
     else
-        cout << "Age: " << "No input recorded" << endl;
+        cout << "| Age     |" << "No input" << endl;
     if (person.GetNumber())
-        wcout << L"Phone: " << person.GetNumber() << endl;
+      wcout << L"| Phone   |" << person.GetNumber() << endl;
     else
-        cout << "Phone: " << "No input recorded" << endl;
-    if (person.GetBirthDay())
-        cout << "Date: " << person.GetBirthDay() << endl;
+        cout << "| Phone   |" << "No input" << endl;
+    if (person.GetBirthday())
+        cout << "| Birthday|" << person.GetBirthday() << endl;
     else
-        cout << "Date: " << "No input recorded" << endl;
+        cout << "| Birthday|" << "No input" << endl;
+    cout << "----------------------------------" << endl;
     
     END:
     cout << "Is all the information correct? y/n: ";
