@@ -30,7 +30,9 @@ void Person::SetName(char* name)
 {
     //std::cout << name << std::endl;
     if (IsValidName(name))
+    { 
         this->name = name;
+    }
     else
         throw ErrorCodes::InvalidName;
 }
@@ -69,7 +71,7 @@ void Person::SetBirthday(char* date)
 
 bool Person::IsValidBirthday(char* birthday)
 {
-    std::regex m("([0-9]{1,2}/[0-9]{1,2}/[0-9]{4})");
+    std::regex m("^([0-9]{1,2}/[0-9]{1,2}/[0-9]{4})$");
     if (std::regex_match(birthday, m))
     { 
         //Gotta make a copy, code after this will change the buffer
@@ -91,11 +93,11 @@ bool Person::IsValidBirthday(char* birthday)
     }
     return false;
 }
-
+#include <iostream>
 bool Person::IsValidNumber(unsigned long long number)
 {
-    //TODO: add a check here later if required
-     return true;
+//TODO: add something here
+    return true;
 }
 
 bool Person::IsValidAge(unsigned short age)
@@ -123,7 +125,8 @@ bool Person::IsValidInitial(char init)
 
 bool Person::IsValidName(char* name)
 {
-    std::regex r("[a-å- |A-Å-]+");
+    //std::regex r("[a-å- |A-Å-]+"); // For a less nazi regex
+    std::regex r("^([A-Å]{1}[a-å]{1,20}) ([A-Å-]{1}[a-å-A-Å]{1,30})$");
     if (std::regex_match(name, r))
         return true;
 

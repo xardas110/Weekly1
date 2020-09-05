@@ -57,7 +57,7 @@ TRY:
             {
                 cin.clear();
                 cin.ignore(LLONG_MAX, '\n');
-                cInput("Name: ", nameBuffer, 100);
+                cInput("Name(Firstname Lastname): ", nameBuffer, 100);
                 goto TRY;
             }
             break;
