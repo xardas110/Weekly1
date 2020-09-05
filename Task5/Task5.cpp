@@ -2,7 +2,6 @@
 using namespace std;
 int main()
 {
-	//printf("\x1B[31mTexting\033[0m\t\t");
 	const char* star = "\x1B[31m * \033[0m";
 	printf("   1   2   3   4   5   6  \n");
 	printf("  --- --- --- --- --- --- \n");
@@ -15,6 +14,5 @@ int main()
 	printf("D:%s:%s:%s:%s:%s:%s : D\n", star, star, star, star, star, star);
 	printf("  --- --- --- --- --- --- \n");
 	printf("   1   2   3   4   5   6  \n");
-
 	system("pause");
 }
