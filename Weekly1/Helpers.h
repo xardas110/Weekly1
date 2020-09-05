@@ -7,7 +7,7 @@
 using BYTE = __int8;
 using UBYTE = unsigned __int8;
 
-/**x = days, y= months, z= years, w = free space**/
+/**x = days, y= months, z= years, w = free space**/ //using UBYTE here since I want just true or false for now
 UBYTE inline _vectorcall IsDateValid(__m128i DMY)
 {
 	constexpr int maxYear = 10000;
