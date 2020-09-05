@@ -100,7 +100,7 @@ bool Person::IsValidNumber(unsigned long long number)
 
 bool Person::IsValidAge(unsigned short age)
 {
-    if (age < (unsigned short)150)
+    if (age < (unsigned short)AGELIMIT)
         return true;
     return false;
 }

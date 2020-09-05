@@ -78,9 +78,12 @@ TRY:
             {
             case 1:
             {
-                cin.clear();
-                cin.ignore(LLONG_MAX, '\n');
-                iInput("Age: ", age);
+                if (!CheckAge(cin, age))
+                {
+                    cin.clear();
+                    cin.ignore(LLONG_MAX, '\n');
+                    goto AGESTART;
+                }
                 goto TRY;
             }
             break;

@@ -3,6 +3,8 @@
 #include "Helpers.h"
 #include "ErrorCodes.h"
 
+#define AGELIMIT 150
+
 class Person
 {
 public:

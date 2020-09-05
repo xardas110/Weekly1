@@ -83,9 +83,12 @@ TRY:
             {
             case 1:
             {
-                cin.clear();
-                cin.ignore(LLONG_MAX, '\n');
-                iInput("Age: ", age);
+                if (!CheckAge(cin, age))
+                {
+                    cin.clear();
+                    cin.ignore(LLONG_MAX, '\n');
+                    goto AGESTART;
+                }
                 goto TRY;
             }
             break;
@@ -161,15 +164,18 @@ TRY:
         {
         PHONESTART:
             char r = ' ';
-            cout << "Invalid age, try again? y/n:";
+            cout << "Invalid Phone number, try again? y/n:";
             cin >> r;
             switch (CheckYN(r))
             {
             case 1:
             {
-                wcin.clear();
-                wcin.ignore(LLONG_MAX, '\n');
-                ilInput("Phone: ", phoneNumberBuffer);
+                if (!CheckPhone(wcin, phoneNumberBuffer))
+                {
+                    cin.clear();
+                    cin.ignore(LLONG_MAX, '\n');
+                    goto PHONESTART;
+                }
                 goto TRY;
             }
             break;
@@ -195,23 +201,23 @@ TRY:
     if (person.GetName())
         cout << "| Name    |" << person.GetName() << endl;
     else 
-        cout << "| Name    |" << "No input" << endl;
+        cout << "| Name    |" << "[No input]" << endl;
     if (person.GetInitial())
         cout << "| Initial |" << person.GetInitial() << endl;
     else
-        cout << "| Initial |" << "No input" << endl;
+        cout << "| Initial |" << "[No input]" << endl;
     if (person.GetAge())
         cout << "| Age     |" << person.GetAge() << endl;
     else
-        cout << "| Age     |" << "No input" << endl;
+        cout << "| Age     |" << "[No input]" << endl;
     if (person.GetNumber())
       wcout << L"| Phone   |" << person.GetNumber() << endl;
     else
-        cout << "| Phone   |" << "No input" << endl;
+        cout << "| Phone   |" << "[No input]" << endl;
     if (person.GetBirthday())
         cout << "| Birthday|" << person.GetBirthday() << endl;
     else
-        cout << "| Birthday|" << "No input" << endl;
+        cout << "| Birthday|" << "[No input]" << endl;
     cout << "----------------------------------" << endl;
     
     END:
