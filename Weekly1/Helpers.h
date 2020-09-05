@@ -16,7 +16,7 @@ UBYTE inline _vectorcall IsDateValid(__m128i DMY)
 
 	//Check if its a leap year
 	const auto& year = DMY.m128i_i32[2];
-	if ((year % 4) == 0 and (year % 100) != 0 or (year % 400) == 0)
+	if ((year % 4) == 0 && (year % 100) != 0 || (year % 400) == 0)
         daysPrMonth[1] += 1;
 	
 	//vectorizing to compare values, these functions require CPU SSE2 support, I won't bother to add support for other CPU's  right now, all cpu's in the last 20years should support SSE2
